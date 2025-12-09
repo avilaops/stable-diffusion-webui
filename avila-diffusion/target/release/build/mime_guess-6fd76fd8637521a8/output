@@ -1,0 +1,1 @@
+cargo:rustc-env=MIME_TYPES_GENERATED_PATH=D:\stable-diffusion-webui\avila-diffusion\target\release\build\mime_guess-6fd76fd8637521a8\out\mime_types_generated.rs

@@ -1,0 +1,10 @@
+D:\stable-diffusion-webui\avila-diffusion\target\debug\deps\safetensors-f253aa3adf3005b2.d: C:\Users\Administrador\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\safetensors-0.4.5\src\lib.rs C:\Users\Administrador\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\safetensors-0.4.5\src\slice.rs C:\Users\Administrador\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\safetensors-0.4.5\src\tensor.rs C:\Users\Administrador\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\safetensors-0.4.5\src\../README.md
+
+D:\stable-diffusion-webui\avila-diffusion\target\debug\deps\libsafetensors-f253aa3adf3005b2.rlib: C:\Users\Administrador\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\safetensors-0.4.5\src\lib.rs C:\Users\Administrador\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\safetensors-0.4.5\src\slice.rs C:\Users\Administrador\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\safetensors-0.4.5\src\tensor.rs C:\Users\Administrador\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\safetensors-0.4.5\src\../README.md
+
+D:\stable-diffusion-webui\avila-diffusion\target\debug\deps\libsafetensors-f253aa3adf3005b2.rmeta: C:\Users\Administrador\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\safetensors-0.4.5\src\lib.rs C:\Users\Administrador\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\safetensors-0.4.5\src\slice.rs C:\Users\Administrador\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\safetensors-0.4.5\src\tensor.rs C:\Users\Administrador\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\safetensors-0.4.5\src\../README.md
+
+C:\Users\Administrador\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\safetensors-0.4.5\src\lib.rs:
+C:\Users\Administrador\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\safetensors-0.4.5\src\slice.rs:
+C:\Users\Administrador\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\safetensors-0.4.5\src\tensor.rs:
+C:\Users\Administrador\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\safetensors-0.4.5\src\../README.md:
