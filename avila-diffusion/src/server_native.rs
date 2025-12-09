@@ -194,9 +194,7 @@ fn read_http_request(stream: &mut TcpStream) -> Result<Vec<u8>, std::io::Error> 
 }
 
 fn find_headers_end(buffer: &[u8]) -> Option<usize> {
-    buffer
-        .windows(4)
-        .position(|window| window == b"\r\n\r\n")
+    buffer.windows(4).position(|window| window == b"\r\n\r\n")
 }
 
 fn parse_content_length(headers: &[u8]) -> usize {
