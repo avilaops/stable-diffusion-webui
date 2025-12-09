@@ -64,21 +64,19 @@ fn handle_connection(
     diffusion: &mut AvilaDiffusion,
     history: &mut HistoryStore,
 ) {
-    let mut buffer = vec![0; 16384]; // 16KB buffer
-
-    let n = match stream.read(&mut buffer) {
-        Ok(n) => n,
-        Err(e) => {
-            eprintln!("❌ Erro ao ler stream: {}", e);
+    let request_bytes = match read_http_request(&mut stream) {
+        Ok(bytes) => bytes,
+        Err(err) => {
+            eprintln!("❌ Erro ao ler requisição: {}", err);
             return;
         }
     };
 
-    if n == 0 {
+    if request_bytes.is_empty() {
         return;
     }
 
-    let request = String::from_utf8_lossy(&buffer[..n]);
+    let request = String::from_utf8_lossy(&request_bytes).into_owned();
     let lines: Vec<&str> = request.lines().collect();
 
     if lines.is_empty() {
@@ -146,6 +144,73 @@ h1{color:#0071e3}code{background:#f5f5f7;padding:2px 8px;border-radius:4px}</sty
         html.len(),
         html
     )
+}
+
+fn read_http_request(stream: &mut TcpStream) -> Result<Vec<u8>, std::io::Error> {
+    const MAX_REQUEST_SIZE: usize = 10 * 1024 * 1024; // 10 MB de limite
+    let mut request = Vec::new();
+    let mut buffer = [0u8; 4096];
+    let mut headers_end: Option<usize> = None;
+    let mut content_length: usize = 0;
+
+    loop {
+        let read = stream.read(&mut buffer)?;
+        if read == 0 {
+            break;
+        }
+
+        request.extend_from_slice(&buffer[..read]);
+
+        if request.len() > MAX_REQUEST_SIZE {
+            return Err(std::io::Error::new(
+                std::io::ErrorKind::InvalidData,
+                "HTTP request too large",
+            ));
+        }
+
+        if headers_end.is_none() {
+            if let Some(pos) = find_headers_end(&request) {
+                headers_end = Some(pos);
+                content_length = parse_content_length(&request[..pos]);
+
+                if content_length == 0 {
+                    break;
+                }
+            }
+        }
+
+        if let Some(header_pos) = headers_end {
+            let body_start = header_pos + 4;
+            let body_len = request.len().saturating_sub(body_start);
+            if body_len >= content_length {
+                break;
+            }
+        } else if read < buffer.len() {
+            break;
+        }
+    }
+
+    Ok(request)
+}
+
+fn find_headers_end(buffer: &[u8]) -> Option<usize> {
+    buffer
+        .windows(4)
+        .position(|window| window == b"\r\n\r\n")
+}
+
+fn parse_content_length(headers: &[u8]) -> usize {
+    let headers_str = String::from_utf8_lossy(headers);
+
+    for line in headers_str.lines() {
+        if let Some((name, value)) = line.split_once(':') {
+            if name.trim().eq_ignore_ascii_case("content-length") {
+                return value.trim().parse().unwrap_or(0);
+            }
+        }
+    }
+
+    0
 }
 
 fn serve_frontend() -> String {
